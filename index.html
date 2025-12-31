@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Sürpriz 💖</title>
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #ffd6e7;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+/* Animasyonlu kalpler */
+.heart {
+    position: absolute;
+    color: #ff4d88;
+    font-size: 24px;
+    pointer-events: none;
+    animation: float 6s linear infinite;
+}
+@keyframes float {
+    0% { transform: translate(0,0) rotate(0deg); opacity: 1; }
+    100% { transform: translate(0,-100vh) rotate(360deg); opacity: 0; }
+}
+
+/* Şifre ekranı süslü */
+#login {
+    background: linear-gradient(135deg,#ffbfdc,#ff94c2);
+    padding: 30px;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 0 30px rgba(255,77,136,0.8);
+    z-index: 10;
+    animation: pulse 2s infinite;
+    position: relative;
+}
+
+@keyframes pulse {
+    0%,100% { transform: scale(1); box-shadow: 0 0 30px rgba(255,77,136,0.8); }
+    50% { transform: scale(1.05); box-shadow: 0 0 50px rgba(255,77,136,1); }
+}
+
+input {
+    padding: 12px;
+    font-size: 18px;
+    border-radius: 15px;
+    border: none;
+    text-align: center;
+    margin-bottom: 15px;
+    width: 220px;
+    box-shadow: 0 0 15px rgba(255,255,255,0.6);
+    animation: floatInput 3s ease-in-out infinite;
+}
+
+@keyframes floatInput {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+button {
+    padding: 12px 30px;
+    font-size: 18px;
+    border-radius: 15px;
+    border: none;
+    background: #ff4d88;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(255,77,136,0.8);
+    animation: floatButton 3s ease-in-out infinite;
+}
+
+@keyframes floatButton {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+#error {
+    color: red;
+    margin-top: 10px;
+}
+
+/* Ana ekran */
+#main { display: none; }
+
+h1 { font-size: 48px; color: #ff0066; }
+p { font-size: 22px; max-width: 900px; margin: auto; color: #660033; }
+
+/* Kediler */
+.cats {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 100px;
+    font-size: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    animation: floatCat 3s ease-in-out infinite;
+}
+
+@keyframes floatCat {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.left { left: 0; }
+.right { right: 0; }
+
+/* Şifre açma butonu */
+#showLoginBtn {
+    padding: 12px 25px;
+    font-size: 20px;
+    border-radius: 10px;
+    border: none;
+    background: #ff4d88;
+    color: white;
+    cursor: pointer;
+}
+
+/* Köşe kalpler */
+.corner-heart {
+    font-size: 28px;
+    pointer-events: none;
+}
+</style>
+</head>
+<body>
+
+<button id="showLoginBtn">💖 Şifreyi Gir 💖</button>
+
+<div id="login" style="display:none;">
+    <input id="pass" placeholder="Şifre" type="text">
+    <button onclick="check()">GİR</button>
+    <div id="error"></div>
+</div>
+
+<div id="main">
+    <h1>💖 SENİ ÇOK SEVİYORUM DAMLAM 💖</h1>
+    <p>
+    Bu yıl tanıdığım en önemli ve değerli kişi sensin.<br>
+    Sensiz ne yapardım bilmiyorum.<br>
+    İyi ki hayatımdasın ve sonsuza kadar da olmaya devam edersin.<br>
+    Bu ilk yılbaşımız ama asla son olmasın.<br>
+    Benim bu yıldaki en güzel hediyem....<br><br>
+    <b>SENİ GERÇEKTEN ÇOK SEVİYORUM BEBEĞİMMM</b><br>
+    💕💞💓💗💖💝💘💌💌❤️‍🔥❤️‍🩹❤️🩷🧡💛💚💙
+    </p>
+</div>
+
+<div class="cats left">🐱  🐱   🐱   🐱   🐱   🐱    🐱</div>
+<div class="cats right">🐱  🐱   🐱   🐱   🐱   🐱    🐱</div>
+
+<script>
+const showLoginBtn = document.getElementById("showLoginBtn");
+const login = document.getElementById("login");
+const input = document.getElementById("pass");
+
+// Şifre ekranını aç ve köşe kalpleri ekle
+showLoginBtn.onclick = () => {
+    login.style.display = "flex";
+    showLoginBtn.style.display = "none";
+    addCornerHearts();
+};
+
+// Köşe kalpler
+function addCornerHearts() {
+    const corners = ["top-left","top-right","bottom-left","bottom-right"];
+    corners.forEach(corner => {
+        const h = document.createElement("div");
+        h.className = "corner-heart";
+        const heartTypes = ["💖","💞","💓","💕","💗","💘","💝","💌"];
+        h.innerText = heartTypes[Math.floor(Math.random()*heartTypes.length)];
+        h.style.position = "absolute";
+        if(corner.includes("top")) h.style.top = "5px"; else h.style.bottom = "5px";
+        if(corner.includes("left")) h.style.left = "5px"; else h.style.right = "5px";
+        h.animate([{transform: 'rotate(0deg)'},{transform:'rotate(360deg)'}],{duration:4000,iterations:Infinity});
+        login.appendChild(h);
+    });
+}
+
+// Şifre büyük/küçük harf duyarsız, şifre: biricikeşim
+function check() {
+    const p = input.value.toLowerCase().replace(/\s/g,'');
+    if (p === "biricikeşim") {
+        login.style.display = "none";
+        document.getElementById("main").style.display = "block";
+        hearts();
+    } else {
+        document.getElementById("error").innerText = "❌ Yanlış şifre";
+    }
+}
+
+// Ana ekranda uçan kalpler
+function hearts() {
+    for (let i = 0; i < 300; i++) {
+        const h = document.createElement("div");
+        h.className = "heart";
+        const heartTypes = ["💖","💞","💓","💕","💗","💘","💝","💌"];
+        h.innerText = heartTypes[Math.floor(Math.random()*heartTypes.length)];
+        h.style.left = Math.random() * 100 + "vw";
+        h.style.top = Math.random() * 100 + "vh";
+        h.style.fontSize = (20 + Math.random() * 30) + "px";
+        h.style.animationDuration = (3 + Math.random() * 5) + "s";
+        h.style.animationDelay = Math.random()*5 + "s";
+        document.body.appendChild(h);
+    }
+}
+
+// Şifre girerken rastgele renkli kalpler
+const heartsList = ["💖","💞","💓","💕","💗","💘","💝","💌"];
+input.addEventListener("input", ()=>{
+    const len = input.value.length;
+    let display = "";
+    for(let i=0;i<len;i++){
+        display += heartsList[Math.floor(Math.random()*heartsList.length)];
+    }
+    input.value = input.value[input.value.length-1] ? input.value : "";
+    input.setAttribute("placeholder", display);
+});
+</script>
+
+</body>
+</html>
